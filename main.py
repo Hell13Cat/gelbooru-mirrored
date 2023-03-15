@@ -2,19 +2,10 @@ import traceback
 from pygelbooru import Gelbooru
 import PySimpleGUI as sg
 import PIL
-import threading
-from PIL import Image
-import io
-import base64
-import os
 from PIL import Image
 import requests
 import json
-import asyncio
 import progressbar
-import webbrowser
-from concurrent.futures import ThreadPoolExecutor
-import multiprocessing
 
 def get_cfg(name):
     datacfg = json.load(open("config.json", "r", encoding='utf-8'))
@@ -148,7 +139,7 @@ def save_data(url, filename):
 def get_data(tags, limit, pid):
     try:
         tags = tags.replace(" ", "+")
-        append_auth = "&api_key="+get_cfg("api_key")+"&user_id="+get_cfg("693972")
+        append_auth = "&api_key="+get_cfg("api_key")+"&user_id="+get_cfg("user_id")
         base_root = "https://gelbooru.com/index.php?"
         append_data = "page=dapi&s=post&q=index&json=1&limit={limit}&tags={tags}&pid={pid}".format(pid=str(pid), tags=tags, limit=str(limit))
         url_res = base_root + append_data + append_auth
