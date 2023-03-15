@@ -6,7 +6,7 @@ import json
 import io
 import mimetypes
 import os
-import webbrowser
+import cv2
 
 ip_run = "127.0.0.23"
 port_run = 80
@@ -15,6 +15,30 @@ app = Flask(__name__)
 global root_folder
 root_folder = os.getcwd() + "\\"
 print(root_folder)
+
+def get_frame(file_path):
+    vid = cv2.VideoCapture(file_path)
+    fps = vid.get(cv2.CAP_PROP_FPS)
+    total_frames = vid.get(cv2.CAP_PROP_FRAME_COUNT)
+    duration_seconds = float(total_frames) / float(fps)
+    secs = duration_seconds // 2
+    fps = vid.get(cv2.CAP_PROP_FPS)
+    vid.set(cv2.CAP_PROP_POS_FRAMES, fps*secs)
+    ret, frame_res = vid.read()
+    color_coverted = cv2.cvtColor(frame_res, cv2.COLOR_BGR2RGB)
+    im = Image.fromarray(color_coverted)
+    datavid = Image.open("data/vid.png")
+    im.paste(datavid, (5, 5))
+    if im.width >= im.height:
+        widtha = 250
+        percent = widtha / im.width
+        heighta = round(im.height * percent)
+    else:
+        heighta = 250
+        percent = heighta / im.height
+        widtha = round(im.width * percent)
+    im = im.resize((widtha, heighta))
+    return im
 
 @app.route("/")
 def index():
@@ -74,9 +98,11 @@ def hentai_search(types, tags):
         if contun == 2:
             if ".webm" in ii["file"] or ".mp4" in ii["file"] or ".avi" in ii["file"] or ".flv" in ii["file"]:
                 typef = "v"
+                url_thumb = "/file/thumb/"+ii["file"]+".png"
             else:
                 typef = "i"
-            res_post = {"tags":" ".join(ii["tags"]), "id":ii["id"], "type":typef, "rating":ii["rating"], "url_full":"/file/full/"+ii["file"], "url_thumb":"/file/thumb/"+ii["file"]}
+                url_thumb = "/file/thumb/"+ii["file"]
+            res_post = {"tags":" ".join(ii["tags"]), "id":ii["id"], "type":typef, "rating":ii["rating"], "url_full":"/file/full/"+ii["file"], "url_thumb":url_thumb}
             list_res.append(res_post)
             count += 1
     json_resp = {"count":count,"list":list_res}
@@ -100,16 +126,19 @@ def hentai_img(filetype, filename):
         return response
     if filetype == "thumb":
         ext = filename.split(".")[-1]
-        images = Image.open(root_folder+"data_img/"+filename)
-        if images.width >= images.height:
-            widtha = 250
-            percent = widtha / images.width
-            heighta = round(images.height * percent)
+        if ".webm.png" in filename:
+            images = get_frame(root_folder+"data_img/"+(filename.replace(".webm.png", ".webm")))
         else:
-            heighta = 250
-            percent = heighta / images.height
-            widtha = round(images.width * percent)
-        images = images.resize((widtha, heighta))
+            images = Image.open(root_folder+"data_img/"+filename)
+            if images.width >= images.height:
+                widtha = 250
+                percent = widtha / images.width
+                heighta = round(images.height * percent)
+            else:
+                heighta = 250
+                percent = heighta / images.height
+                widtha = round(images.width * percent)
+            images = images.resize((widtha, heighta))
         io_data = io.BytesIO()
         if ext == "jpg":
             extf = "jpeg"
