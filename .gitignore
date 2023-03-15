@@ -127,3 +127,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# My Data
+data_img/
+bu/
+data_info.json
+exhenti.py
+gen1.py
+list_q.txt
+list_tag.txt
+main (2).py
+search_data.json
+2.json
+image_gen.py
+config.json

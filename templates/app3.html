@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/css/bulma.min.css">
+<link type="text/css" rel="stylesheet" href="/static/css/my.css" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>     
+<body>
+<nav class="navbar is-fixed-top search-n" role="navigation" aria-label="main navigation">
+<div class="navbar-brand"></div>
+<input class="input is-danger search search-i" id="myInput" type="text" placeholder="Поиск" list="tagnameac">
+<div class="select search search-r is-danger">
+  <select id="selected-r">
+    <option value="mix">Mix</option>
+    <option value="general">General</option>
+    <option value="questionable">Questionable</option>
+    <option value="explicit">Explicit</option>
+  </select>
+</div>
+</div>
+</nav>
+</br>
+</br>
+</br>
+<datalist id="tagnameac"></datalist>
+</br>
+<div style="display: none;" id="windss" class="winds">
+  <button class="buttonclose" onclick="close_full()">X</button>
+  </br>
+  <img height="90%" id="imagef" src=""></img>
+  </br>
+  <button class="buttonclose" onclick="close_full()">X</button>
+</div>
+<div id="aniimated-thumbnials"></div>
+<script src="/static/js/my.js"></script>
+<script>
+  main_my();
+</script>
+</body>
+</html>
