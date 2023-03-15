@@ -52,10 +52,15 @@ def hentai_autoc(cut_tag):
     tagss = dataf["tags"]
     count = 0
     list_res = []
+    if cut_tag[0] == "-":
+        prefix = "-"
+        cut_tag = cut_tag[1:]
+    else:
+        prefix = ""
     for ii in tagss:
         if ii.startswith(cut_tag, 0):
             count += 1
-            list_res.append(ii)
+            list_res.append(prefix+ii)
     json_resp = {"count":count,"list":list_res}
     response = jsonify(json_resp)
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -76,15 +81,27 @@ def hentai_search(types, tags):
     print(types)
     if tags[-1] == "+":
         tags = tags[:-1]
-    tagsp = tags.split("+")
+    tagspmix = tags.split("+")
+    tagspok = []
+    tagspdel = []
+    for ttt in tagspmix:
+        if ttt[0] == "-":
+            tagspdel.append(ttt[1:])
+        else:
+            tagspok.append(ttt)
     dataf = json.load(open(root_folder+"data_info.json", "r", encoding='utf-8'))
     posts = dataf["data_set"]
     count = 0
     list_res = []
     for ii in posts:
         contun = 2
-        for dd in tagsp:
+        for dd in tagspok:
             if dd in ii["tags"]:
+                pass
+            else:
+                contun -= 1
+        for dd in tagspdel:
+            if dd not in ii["tags"]:
                 pass
             else:
                 contun -= 1
