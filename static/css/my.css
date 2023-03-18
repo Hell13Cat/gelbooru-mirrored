@@ -86,8 +86,10 @@ input {
     position: fixed;
     top: 0;
     width: 100%;
-    height: max-content;
+    height: 40px;
     background-color: rgb(53, 53, 53);
+    vertical-align: bottom;
+    display: inline;
 }
 
 
@@ -106,4 +108,8 @@ input {
     background-color: rgb(53, 53, 53);
     color: white;
     border: 1px solid white;
+}
+
+.mainsearchdata {
+    padding-top: 50px;
 }
