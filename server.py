@@ -43,7 +43,7 @@ def get_frame(file_path):
 @app.route("/")
 def index():
     value = Markup('<strong>The HTML String</strong>')
-    response = render_template("app3.html")
+    response = render_template("app.html")
     return response
 
 @app.route("/autoc/<cut_tag>")
@@ -122,7 +122,11 @@ def hentai_search(types, tags):
             res_post = {"tags":" ".join(ii["tags"]), "id":ii["id"], "type":typef, "rating":ii["rating"], "url_full":"/file/full/"+ii["file"], "url_thumb":url_thumb}
             list_res.append(res_post)
             count += 1
-    json_resp = {"count":count,"list":list_res}
+    if len(list_res) < 25:
+        pages_count = 1
+    else:
+        pages_count = len(list_res) // 25
+    json_resp = {"pages":pages_count, "count":count,"list":list_res}
     response = jsonify(json_resp)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
