@@ -10,28 +10,6 @@ body {
     min-height: 100vh;
 }
 
-input {
-    background-color: srgb(53, 53, 53);
-}
-
-.search-i {
-    background-color: white;
-    width: 88%;
-}
-
-.search-i {
-    background-color: rgb(53, 53, 53);
-    color: white;
-    cursor: pointer;
-}
-
-.search-n {
-    background-color: rgb(53, 53, 53);
-    color: white;
-    height: fit-content;
-    min-height: 0rem;
-}
-
 .winds {
     width: 90%;
     height: 90%;
@@ -93,21 +71,22 @@ input {
 }
 
 
-.searchmenuinput {
+.searchmenuelement {
     height: 30px;
-    width: 90%;
     background-color: rgb(53, 53, 53);
     color: white;
     border: 1px solid white;
+    border-radius: 4px;
+}
+
+
+.searchmenuinput {
+    width: 90%;
 }
 
 
 .searchmenuselected {
-    height: 30px;
     width: 9%;
-    background-color: rgb(53, 53, 53);
-    color: white;
-    border: 1px solid white;
 }
 
 .mainsearchdata {
