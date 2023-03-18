@@ -80,3 +80,30 @@ input {
     vertical-align: bottom;
     border-radius: 4px;
 }
+
+.searchmenu {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: max-content;
+    background-color: rgb(53, 53, 53);
+}
+
+
+.searchmenuinput {
+    height: 30px;
+    width: 90%;
+    background-color: rgb(53, 53, 53);
+    color: white;
+    border: 1px solid white;
+}
+
+
+.searchmenuselected {
+    height: 30px;
+    width: 9%;
+    background-color: rgb(53, 53, 53);
+    color: white;
+    border: 1px solid white;
+}
