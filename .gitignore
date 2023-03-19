@@ -143,3 +143,6 @@ image_gen.py
 config.json
 test_frame.py
 test.png
+notify.py
+gelbooruicon.ico
+gelbooruicon2.ico
